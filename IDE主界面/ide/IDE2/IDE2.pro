@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-08-30T23:02:25
+# Project created by QtCreator 2019-09-03T15:29:19
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ide
+TARGET = IDE2
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -32,6 +32,3 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
-
-RESOURCES += \
-    image.qrc
