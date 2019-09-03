@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/baocun.png</file>
+        <file>image/bianyi.png</file>
+        <file>image/dakai.png</file>
+        <file>image/yunxing.png</file>
+    </qresource>
+</RCC>
