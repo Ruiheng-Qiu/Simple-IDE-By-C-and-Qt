@@ -26,7 +26,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    QsciScintilla *editor=new QsciScintilla(this);
+    QsciScintilla *editor=new QsciScintilla(this);//文本主体
 
     ~MainWindow();
 

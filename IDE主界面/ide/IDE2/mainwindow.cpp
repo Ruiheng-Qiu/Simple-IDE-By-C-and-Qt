@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     editor->setAutoCompletionCaseSensitivity(true);//大小写敏感
     editor->setAutoCompletionThreshold(1);//每输入1个字符就出现自动完成的提示
 
-    //editor->setAutoIndent(true);
+    //editor->setAutoIndent(true);//本来应该是括号补齐，不知道为什么没有用
 
     editor->setMarginType(0,QsciScintilla::NumberMargin);
     editor->setMarginLineNumbers(0,true);
@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     editor->setCaretLineBackgroundColor(Qt::white);//选中所在行颜色
     editor->setMarginsBackgroundColor(Qt::lightGray);//行号颜色
     editor->setBraceMatching(QsciScintilla::SloppyBraceMatch);
+
     QVBoxLayout *v=new QVBoxLayout();
     v->addWidget(editor);
     this->setLayout(v);
@@ -231,12 +232,11 @@ void MainWindow::on_save()
     FILE *p=fopen(savefilename.toStdString().data(),"w");
     if(p==NULL)
     {
-        QMessageBox::information(this,"错误","打开文件失败");
+        QMessageBox::information(this,"错误","保存文件失败");
         return;
     }
     else
     {
-        // text1->toPlainText().toStdString().data();//将用户在控件中输入的字符串转化为const char *
         fputs(editor->text().toStdString().data(),p);
         QString str = editor->text();
         fclose(p);
@@ -250,41 +250,43 @@ void MainWindow::precomp()//预编译
 {
     FILE *p = fopen(filename.toStdString().data(),"r");
     if(p == NULL) return ;
-    QString cmd = filename +".c";
-    FILE *p1 = fopen(cmd.toStdString().data(),"w");
+    QString cmd = filename +".c";//准备写入cmd的命令
+    FILE *p1 = fopen(cmd.toStdString().data(),"w");//写入命令
     if(p1 == NULL) return ;
     QString str;
     while(!feof(p))
     {
         char buf[1024] = {0};
         fgets(buf,sizeof(buf),p);
-        str += buf;
+        str += buf;//拼接文本内容
     }
 
     fputs(str.toStdString().data(),p1);
     fclose(p);
-    fclose(p1);
+    fclose(p1);//记得关闭文件！
 }
 
 
 void MainWindow::on_compile()
 {
-    if (flag_isNew == true)//在点击编译按钮，如果文本内容发生变化，就自动保存
+    if (flag_isNew == true)//如果是新文件，编译就另存为
         {
             on_save();
         }
-        precomp();//自动以预编译
+    else {//不是则先保存再编译
+     Save_File();
+    }
+        precomp();//预编译
         QString cmd;
-        const char *s = filename.toStdString().data();
-        cmd.sprintf("gcc -o %s.exe %s.c",s,s);
+        const char *s = filename.toStdString().data();//获取代码内容
+        cmd.sprintf("gcc -o %s.exe %s.c",s,s);//编译命令
         system(cmd.toStdString().data());//先编译
 
-        //如何删除那个临时文件呢
         cmd = filename.replace("/","\\") + ".c";
-        remove(cmd.toStdString().data());
+        remove(cmd.toStdString().data());//清楚数据
 
 
-        cmd = filename + ".exe";
+        cmd = filename + ".exe";//生成可运行我呢见
         system(cmd.toStdString().data());//再运行
 
 }
@@ -293,6 +295,6 @@ void MainWindow::on_run()
 {
     QString cmd;
     cmd = filename + ".exe";
-    system(cmd.toStdString().data());
+    system(cmd.toStdString().data());//运行exe文件
 }
 
