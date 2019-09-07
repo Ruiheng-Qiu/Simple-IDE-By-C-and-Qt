@@ -21,19 +21,33 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("IDE");
     this->setMinimumSize(1000,600); //运行后弹出界面大小，可放大
 
-    textEdit=new QTextEdit;
-    QFont f;
-    f.setPixelSize(24);
-    textEdit->setFont(f);//设置字体的大小
-    QColor c;
-    c.setRgb(160,40,120);
-    textEdit->setTextColor(c);//设置字体的颜色
-    //this->setCentralWidget(textEdit);//将这个控件放到对话框的中间
+    editor->SendScintilla(QsciScintilla::SCI_SETCODEPAGE,QsciScintilla::SC_CP_UTF8);
+    editor->setAutoIndent(true);
+    QsciLexer *textLexer = new QsciLexerLua;
+    editor->setLexer(textLexer);
 
-    //显示行号
+    QsciAPIs *apis = new QsciAPIs(textLexer);
+    //在这里可以添加自定义的自动完成函数
+    //apis->add(QString("func_name(arg_1,arg_2) function info"));
+    apis->prepare();
+    //设置自动完成所有项
+    editor->setAutoCompletionSource(QsciScintilla::AcsAll);
+    //设置大小写敏感
+    editor->setAutoCompletionCaseSensitivity(true);
+    //每输入1个字符就出现自动完成的提示
+    editor->setAutoCompletionThreshold(1);
+
+    editor->setAutoIndent(true);
     editor->setMarginType(0,QsciScintilla::NumberMargin);
     editor->setMarginLineNumbers(0,true);
     editor->setMarginWidth(0,35);
+
+    editor->setIndentationGuides(QsciScintilla::SC_IV_LOOKBOTH);
+    editor->setCaretLineVisible(true);
+
+    editor->setCaretLineBackgroundColor(Qt::white);
+    editor->setMarginsBackgroundColor(Qt::lightGray);
+    editor->setBraceMatching(QsciScintilla::SloppyBraceMatch);
     QVBoxLayout *v=new QVBoxLayout();
     v->addWidget(editor);
     this->setLayout(v);

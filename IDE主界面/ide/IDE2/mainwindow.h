@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <Qsci/qsciscintilla.h>
+#include <Qsci/qscilexerlua.h>
+#include <Qsci/qsciapis.h>
 
 namespace Ui {
 class MainWindow;
