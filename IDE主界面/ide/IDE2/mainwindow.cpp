@@ -1,10 +1,12 @@
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include "QMessageBox"
 #include "QFileDialog"
 #include <QFile>
 #include <QFileDevice>
 #include <QTextStream>
 #include <QtEvents>
+#include <QVBoxLayout>
 
 int flag_isOpen = 0; //判断是否打开或新建了一个文件
 int flag_isNew = 0; //判断文件是否新建
@@ -12,17 +14,31 @@ QString Last_FileName;
 QString Last_FileContent;
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent)
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 
 {
-    text1=new QTextEdit;
+    this->setWindowTitle("IDE");
+    this->setMinimumSize(1000,600); //运行后弹出界面大小，可放大
+
+    textEdit=new QTextEdit;
     QFont f;
     f.setPixelSize(24);
-    text1->setFont(f);//设置字体的大小
+    textEdit->setFont(f);//设置字体的大小
     QColor c;
     c.setRgb(160,40,120);
-    text1->setTextColor(c);//设置字体的颜色
-    this->setCentralWidget(text1);//将这个控件放到对话框的中间
+    textEdit->setTextColor(c);//设置字体的颜色
+    //this->setCentralWidget(textEdit);//将这个控件放到对话框的中间
+
+    //显示行号
+    editor->setMarginType(0,QsciScintilla::NumberMargin);
+    editor->setMarginLineNumbers(0,true);
+    editor->setMarginWidth(0,35);
+    QVBoxLayout *v=new QVBoxLayout();
+    v->addWidget(editor);
+    this->setLayout(v);
+    setCentralWidget(editor);
+
     file=this->menuBar()->addMenu("文件");//在菜单栏中添加菜单项
     edit=this->menuBar()->addMenu("编辑");
     build=this->menuBar()->addMenu("构建");
@@ -74,7 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete text1;
+    delete ui;
 }
 void MainWindow::on_open()
 {
@@ -101,7 +117,7 @@ void MainWindow::on_open()
             content+=buf;//将读取到的内容追加到content后面
         }
         fclose(p);
-        text1->setText(content);//将字符串的值放到text里面
+        editor->setText(content);//将字符串的值放到text里面
         flag_isOpen = 1;
         Last_FileName = filename;
     }
@@ -111,7 +127,7 @@ void MainWindow::Save_File() //保存文件
     //新文件的保存
     if(flag_isNew == 1)
     {
-        if(text1->toPlainText() == "") //文件内容为空，弹出提示框
+        if(editor->text() == "") //文件内容为空，弹出提示框
         {
             QMessageBox::warning(this,tr("警告"),tr("内容不能为空!"),QMessageBox::Ok);
         }
@@ -132,7 +148,7 @@ void MainWindow::Save_File() //保存文件
             else
             {
                 QTextStream textStream(&filename);
-                QString str = text1->toPlainText();
+                QString str = editor->text();
                 textStream<<str;
                 Last_FileContent = str;
             }
@@ -156,7 +172,7 @@ void MainWindow::Save_File() //保存文件
             else
             {
                 QTextStream textStream(&file);
-                QString str = text1->toPlainText();
+                QString str = editor->text();
                 textStream<<str;
                 Last_FileContent = str;
                 file.close();
@@ -180,19 +196,19 @@ void MainWindow::on_exit()
 }
 void MainWindow::on_copy()
 {
-    text1->copy();
+    editor->copy();
 }
 void MainWindow::on_cut()
 {
-    text1->cut();
+    editor->cut();
 }
 void MainWindow::on_paste()
 {
-    text1->paste();
+    editor->paste();
 }
 void MainWindow::on_selectall()
 {
-    text1->selectAll();
+    editor->selectAll();
 }
 void MainWindow::on_save()
 {
@@ -210,8 +226,8 @@ void MainWindow::on_save()
     else
     {
         // text1->toPlainText().toStdString().data();//将用户在控件中输入的字符串转化为const char *
-        fputs(text1->toPlainText().toStdString().data(),p);
-        QString str = text1->toPlainText();
+        fputs(editor->text().toStdString().data(),p);
+        QString str = editor->text();
         fclose(p);
         Last_FileContent = str;
         Last_FileName = savefilename;

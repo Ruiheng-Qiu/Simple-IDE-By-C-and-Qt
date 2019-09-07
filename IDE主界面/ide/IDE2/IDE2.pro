@@ -32,3 +32,19 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release/ -lqscintilla2_qt5
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/debug/ -lqscintilla2_qt5
+else:unix: LIBS += -L$$PWD/../../../QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/ -lqscintilla2_qt5
+
+INCLUDEPATH += $$PWD/../../../QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release
+DEPENDPATH += $$PWD/../../../QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release
+
+
+
+win32:CONFIG(release, debug|release): LIBS += -LF:/Qt/QScintilla_gpl-2.11.2/Qt4Qt5/release/ -lqscintilla2_qt5
+else:win32:CONFIG(debug, debug|release): LIBS += -LF:/Qt/QScintilla_gpl-2.11.2/Qt4Qt5/debug/ -lqscintilla2_qt5
+else:unix: LIBS += -LF:/Qt/QScintilla_gpl-2.11.2/Qt4Qt5/ -lqscintilla2_qt5
+
+INCLUDEPATH += F:/Qt/QScintilla_gpl-2.11.2/Qt4Qt5/release
+DEPENDPATH += F:/Qt/QScintilla_gpl-2.11.2/Qt4Qt5/release

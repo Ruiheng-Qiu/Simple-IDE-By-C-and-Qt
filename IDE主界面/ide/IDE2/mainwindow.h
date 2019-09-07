@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <Qsci/qsciscintilla.h>
 
 namespace Ui {
 class MainWindow;
@@ -23,16 +24,17 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    QsciScintilla *editor=new QsciScintilla(this);
     ~MainWindow();
 
 private:
+    Ui::MainWindow *ui;
     QString filename;
     QString savefilename;
 
-
 private :
 
-    QTextEdit *text1;
+    QTextEdit *textEdit;
 
     QMenu *file;
 

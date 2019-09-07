@@ -14,10 +14,10 @@ CXX           = g++
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -g -Wall -W -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I..\IDE2 -I. -IF:\Qt\5.10.1\mingw53_32\include -IF:\Qt\5.10.1\mingw53_32\include\QtWidgets -IF:\Qt\5.10.1\mingw53_32\include\QtGui -IF:\Qt\5.10.1\mingw53_32\include\QtANGLE -IF:\Qt\5.10.1\mingw53_32\include\QtCore -Idebug -I. -IF:\Qt\5.10.1\mingw53_32\mkspecs\win32-g++ 
+INCPATH       = -I..\IDE2 -I. -IC:/Users/SK-31/Desktop/IDE(2)/IDE(2)/ide/IDE2/../../../QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:\Qt\QScintilla_gpl-2.11.2\Qt4Qt5\release -IF:\Qt\5.10.1\mingw53_32\include -IF:\Qt\5.10.1\mingw53_32\include\QtWidgets -IF:\Qt\5.10.1\mingw53_32\include\QtGui -IF:\Qt\5.10.1\mingw53_32\include\QtANGLE -IF:\Qt\5.10.1\mingw53_32\include\QtCore -Idebug -I. -IF:\Qt\5.10.1\mingw53_32\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        -lmingw32 -LF:\Qt\5.10.1\mingw53_32\lib F:\Qt\5.10.1\mingw53_32\lib\libqtmaind.a -LC:\utils\my_sql\my_sql\lib -LC:\utils\postgresql\pgsql\lib -lshell32 F:\Qt\5.10.1\mingw53_32\lib\libQt5Widgetsd.a F:\Qt\5.10.1\mingw53_32\lib\libQt5Guid.a F:\Qt\5.10.1\mingw53_32\lib\libQt5Cored.a 
+LIBS        =        -lmingw32 -LF:\Qt\5.10.1\mingw53_32\lib F:\Qt\5.10.1\mingw53_32\lib\libqtmaind.a -LC:\utils\my_sql\my_sql\lib -LC:\utils\postgresql\pgsql\lib -lshell32 -LC:\Users\SK-31\Desktop\IDE(2)\QScintilla_gpl-2.11.2\QScintilla_gpl-2.11.2\Qt4Qt5\debug -LF:\Qt\QScintilla_gpl-2.11.2\Qt4Qt5\debug -lqscintilla2_qt5 F:\Qt\5.10.1\mingw53_32\lib\libQt5Widgetsd.a F:\Qt\5.10.1\mingw53_32\lib\libQt5Guid.a F:\Qt\5.10.1\mingw53_32\lib\libQt5Cored.a 
 QMAKE         = F:\Qt\5.10.1\mingw53_32\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -209,10 +209,26 @@ debug/moc_mainwindow.cpp: F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QMainWindow 
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtouchdevice.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtabwidget.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qicon.h \
-		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QTextEdit \
-		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtextedit.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciscintilla.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QByteArray \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QList \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QObject \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QPointer \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qpointer.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QStringList \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciglobal.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscicommand.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciscintillabase.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QAbstractScrollArea \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qframe.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QPoint \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QTimer \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qtimer.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qbasictimer.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscidocument.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QTextEdit \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtextedit.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextdocument.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextoption.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextcursor.h \
@@ -228,7 +244,7 @@ debug/moc_mainwindow.cpp: F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QMainWindow 
 		../IDE2/mainwindow.h \
 		debug/moc_predefs.h \
 		F:/Qt/5.10.1/mingw53_32/bin/moc.exe
-	F:\Qt\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IF:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++ -IF:/programs/Simple-IDE-By-C-and-Qt/IDE???/ide/IDE2 -IF:/Qt/5.10.1/mingw53_32/include -IF:/Qt/5.10.1/mingw53_32/include/QtWidgets -IF:/Qt/5.10.1/mingw53_32/include/QtGui -IF:/Qt/5.10.1/mingw53_32/include/QtANGLE -IF:/Qt/5.10.1/mingw53_32/include/QtCore -I. -IF:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IF:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\IDE2\mainwindow.h -o debug\moc_mainwindow.cpp
+	F:\Qt\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IF:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++ -I"C:/Users/SK-31/Desktop/IDE(2)/IDE(2)/ide/IDE2" -I"C:/Users/SK-31/Desktop/IDE(2)/QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release" -IF:/Qt/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:/Qt/5.10.1/mingw53_32/include -IF:/Qt/5.10.1/mingw53_32/include/QtWidgets -IF:/Qt/5.10.1/mingw53_32/include/QtGui -IF:/Qt/5.10.1/mingw53_32/include/QtANGLE -IF:/Qt/5.10.1/mingw53_32/include/QtCore -I. -IF:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IF:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\IDE2\mainwindow.h -o debug\moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -360,10 +376,26 @@ debug/main.o: ../IDE2/main.cpp ../IDE2/mainwindow.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtouchdevice.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtabwidget.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qicon.h \
-		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QTextEdit \
-		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtextedit.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciscintilla.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QByteArray \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QList \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QObject \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QPointer \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qpointer.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QStringList \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciglobal.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscicommand.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciscintillabase.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QAbstractScrollArea \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qframe.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QPoint \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QTimer \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qtimer.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qbasictimer.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscidocument.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QTextEdit \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtextedit.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextdocument.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextoption.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextcursor.h \
@@ -492,10 +524,26 @@ debug/mainwindow.o: ../IDE2/mainwindow.cpp ../IDE2/mainwindow.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtouchdevice.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtabwidget.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qicon.h \
-		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QTextEdit \
-		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtextedit.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciscintilla.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QByteArray \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QList \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QObject \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QPointer \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qpointer.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QStringList \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciglobal.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscicommand.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciscintillabase.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QAbstractScrollArea \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qframe.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QPoint \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QTimer \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qtimer.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qbasictimer.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscidocument.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QTextEdit \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtextedit.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextdocument.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextoption.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextcursor.h \
@@ -508,6 +556,37 @@ debug/mainwindow.o: ../IDE2/mainwindow.cpp ../IDE2/mainwindow.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QMenuBar \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qmenubar.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QAction \
+		ui_mainwindow.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QVariant \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QApplication \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qapplication.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qcoreapplication.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qeventloop.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qdesktopwidget.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/qguiapplication.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/qinputmethod.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QButtonGroup \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QHeaderView \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qheaderview.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qabstractitemmodel.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qitemselectionmodel.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qstyleoption.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qabstractspinbox.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/qvalidator.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qregularexpression.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qslider.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qabstractslider.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qstyle.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtabbar.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qrubberband.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QStatusBar \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qstatusbar.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QToolBar \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtoolbar.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QWidget \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QMessageBox \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qmessagebox.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qdialog.h \
@@ -518,7 +597,12 @@ debug/mainwindow.o: ../IDE2/mainwindow.cpp ../IDE2/mainwindow.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtCore/QFile \
 		F:/Qt/5.10.1/mingw53_32/include/QtCore/QFileDevice \
 		F:/Qt/5.10.1/mingw53_32/include/QtCore/QTextStream \
-		F:/Qt/5.10.1/mingw53_32/include/QtGui/QtEvents
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QtEvents \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QVBoxLayout \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qboxlayout.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qlayout.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\IDE2\mainwindow.cpp
 
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 
