@@ -7,6 +7,8 @@
 #include <QTextStream>
 #include <QtEvents>
 #include <QVBoxLayout>
+#include <Qsci/qscilexercpp.h>
+
 
 int flag_isOpen = 0; //判断是否打开或新建了一个文件
 int flag_isNew = 0; //判断文件是否新建
@@ -18,40 +20,35 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 
 {
-    this->setWindowTitle("IDE");
+    this->setWindowTitle("Simple C! :)");
     this->setMinimumSize(1000,600); //运行后弹出界面大小，可放大
 
-    editor->SendScintilla(QsciScintilla::SCI_SETCODEPAGE,QsciScintilla::SC_CP_UTF8);
-    editor->setAutoIndent(true);
-    QsciLexer *textLexer = new QsciLexerLua;
-    editor->setLexer(textLexer);
+    editor->SendScintilla(QsciScintilla::SCI_SETCODEPAGE,QsciScintilla::SC_CP_UTF8);//设置UTF-8编码
+    QsciLexer *textLexer=new QsciLexerCPP;
+    editor->setLexer(textLexer);//设置词法器检测单词
 
     QsciAPIs *apis = new QsciAPIs(textLexer);
-    //在这里可以添加自定义的自动完成函数
-    //apis->add(QString("func_name(arg_1,arg_2) function info"));
     apis->prepare();
-    //设置自动完成所有项
-    editor->setAutoCompletionSource(QsciScintilla::AcsAll);
-    //设置大小写敏感
-    editor->setAutoCompletionCaseSensitivity(true);
-    //每输入1个字符就出现自动完成的提示
-    editor->setAutoCompletionThreshold(1);
+    editor->setAutoCompletionSource(QsciScintilla::AcsAll);//设置自动完成所有项
+    editor->setAutoCompletionCaseSensitivity(true);//大小写敏感
+    editor->setAutoCompletionThreshold(1);//每输入1个字符就出现自动完成的提示
 
-    editor->setAutoIndent(true);
+    //editor->setAutoIndent(true);
+
     editor->setMarginType(0,QsciScintilla::NumberMargin);
     editor->setMarginLineNumbers(0,true);
-    editor->setMarginWidth(0,35);
+    editor->setMarginWidth(0,35);//设置行号计数
 
     editor->setIndentationGuides(QsciScintilla::SC_IV_LOOKBOTH);
-    editor->setCaretLineVisible(true);
+    editor->setCaretLineVisible(true);//自动补齐
 
-    editor->setCaretLineBackgroundColor(Qt::white);
-    editor->setMarginsBackgroundColor(Qt::lightGray);
+    editor->setCaretLineBackgroundColor(Qt::white);//选中所在行颜色
+    editor->setMarginsBackgroundColor(Qt::lightGray);//行号颜色
     editor->setBraceMatching(QsciScintilla::SloppyBraceMatch);
     QVBoxLayout *v=new QVBoxLayout();
     v->addWidget(editor);
     this->setLayout(v);
-    setCentralWidget(editor);
+    setCentralWidget(editor);//将editor置于窗口钟信
 
     file=this->menuBar()->addMenu("文件");//在菜单栏中添加菜单项
     edit=this->menuBar()->addMenu("编辑");
@@ -249,40 +246,53 @@ void MainWindow::on_save()
     }
 }
 
+void MainWindow::precomp()//预编译
+{
+    FILE *p = fopen(filename.toStdString().data(),"r");
+    if(p == NULL) return ;
+    QString cmd = filename +".c";
+    FILE *p1 = fopen(cmd.toStdString().data(),"w");
+    if(p1 == NULL) return ;
+    QString str;
+    while(!feof(p))
+    {
+        char buf[1024] = {0};
+        fgets(buf,sizeof(buf),p);
+        str += buf;
+    }
+
+    fputs(str.toStdString().data(),p1);
+    fclose(p);
+    fclose(p1);
+}
 
 
 void MainWindow::on_compile()
 {
-    QString content="#include<stdio.h>\n";
-    FILE *p=fopen(filename.toStdString().data(),"r");
-    if(p==NULL)
-        return;
-    while(!feof(p))
-    {
-        char buf[1024]={0};
-        fgets(buf,sizeof(buf),p);
-        content+=buf;
-    }
-    fclose(p);
-    content.replace("111","int").replace("222","main").replace("333","{").replace("444","printf(\"hello jumfens\")").replace("8888","printf(\"\\n\");").replace("555","getchar();").replace("666","return").replace("777","}");
-    QMessageBox::information(this,"显示",content);    //    return ;
-    QString destfilename=filename;
-    destfilename.replace(".e",".c");
-    p=fopen(destfilename.toStdString().data(),"w");
-    fputs(content.toStdString().data(),p);
-    fclose(p);
-    QString srcname=destfilename;
-    srcname.replace(".c",".exe");
-    QString command="gcc -o "+srcname +" "+destfilename;
-    system(command.toStdString().data());
-    // remove(destfilename.toStdString().data());
-    //可以将中间生成的.c文件删除
+    if (flag_isNew == true)//在点击编译按钮，如果文本内容发生变化，就自动保存
+        {
+            on_save();
+        }
+        precomp();//自动以预编译
+        QString cmd;
+        const char *s = filename.toStdString().data();
+        cmd.sprintf("gcc -o %s.exe %s.c",s,s);
+        system(cmd.toStdString().data());//先编译
+
+        //如何删除那个临时文件呢
+        cmd = filename.replace("/","\\") + ".c";
+        remove(cmd.toStdString().data());
+
+
+        cmd = filename + ".exe";
+        system(cmd.toStdString().data());//再运行
+
 }
 
 void MainWindow::on_run()
 {
-    QString destfilename=filename;
-    destfilename.replace(".e",".exe");
-    system(destfilename.toStdString().data());
+    QString cmd;
+    cmd = filename + ".exe";
+    system(cmd.toStdString().data());
 }
 

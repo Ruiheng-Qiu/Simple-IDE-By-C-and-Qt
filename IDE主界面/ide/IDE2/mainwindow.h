@@ -27,6 +27,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     QsciScintilla *editor=new QsciScintilla(this);
+
     ~MainWindow();
 
 private:
@@ -73,6 +74,7 @@ private slots:
     void on_compile();
     void on_run();
     void Save_File();
+    void precomp();
 };
 
 #endif // MAINWINDOW_H
