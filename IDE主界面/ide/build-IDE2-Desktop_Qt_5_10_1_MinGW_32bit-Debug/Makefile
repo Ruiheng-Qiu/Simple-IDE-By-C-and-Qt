@@ -212,6 +212,7 @@ Makefile: ../IDE2/IDE2.pro F:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++/qmake.conf 
 		F:/Qt/5.10.1/mingw53_32/mkspecs/features/qt_config.prf \
 		F:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++/qmake.conf \
 		F:/Qt/5.10.1/mingw53_32/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		F:/Qt/5.10.1/mingw53_32/mkspecs/features/exclusive_builds.prf \
 		F:/Qt/5.10.1/mingw53_32/mkspecs/features/toolchain.prf \
 		F:/Qt/5.10.1/mingw53_32/mkspecs/features/default_pre.prf \
@@ -391,6 +392,7 @@ F:/Qt/5.10.1/mingw53_32/mkspecs/features/qt_functions.prf:
 F:/Qt/5.10.1/mingw53_32/mkspecs/features/qt_config.prf:
 F:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++/qmake.conf:
 F:/Qt/5.10.1/mingw53_32/mkspecs/features/spec_post.prf:
+.qmake.stash:
 F:/Qt/5.10.1/mingw53_32/mkspecs/features/exclusive_builds.prf:
 F:/Qt/5.10.1/mingw53_32/mkspecs/features/toolchain.prf:
 F:/Qt/5.10.1/mingw53_32/mkspecs/features/default_pre.prf:

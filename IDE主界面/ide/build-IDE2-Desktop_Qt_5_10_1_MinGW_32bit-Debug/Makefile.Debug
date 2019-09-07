@@ -228,7 +228,7 @@ debug/moc_mainwindow.cpp: F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QMainWindow 
 		../IDE2/mainwindow.h \
 		debug/moc_predefs.h \
 		F:/Qt/5.10.1/mingw53_32/bin/moc.exe
-	F:\Qt\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IF:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++ -IC:/Users/SK-31/Desktop/IDE2/IDE2 -IF:/Qt/5.10.1/mingw53_32/include -IF:/Qt/5.10.1/mingw53_32/include/QtWidgets -IF:/Qt/5.10.1/mingw53_32/include/QtGui -IF:/Qt/5.10.1/mingw53_32/include/QtANGLE -IF:/Qt/5.10.1/mingw53_32/include/QtCore -I. -IF:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IF:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\IDE2\mainwindow.h -o debug\moc_mainwindow.cpp
+	F:\Qt\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IF:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++ -IF:/programs/Simple-IDE-By-C-and-Qt/IDE???/ide/IDE2 -IF:/Qt/5.10.1/mingw53_32/include -IF:/Qt/5.10.1/mingw53_32/include/QtWidgets -IF:/Qt/5.10.1/mingw53_32/include/QtGui -IF:/Qt/5.10.1/mingw53_32/include/QtANGLE -IF:/Qt/5.10.1/mingw53_32/include/QtCore -I. -IF:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IF:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IF:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\IDE2\mainwindow.h -o debug\moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -514,7 +514,11 @@ debug/mainwindow.o: ../IDE2/mainwindow.cpp ../IDE2/mainwindow.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QFileDialog \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qfiledialog.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtCore/qdir.h \
-		F:/Qt/5.10.1/mingw53_32/include/QtCore/qfileinfo.h
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/qfileinfo.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QFile \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QFileDevice \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QTextStream \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QtEvents
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\IDE2\mainwindow.cpp
 
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 
