@@ -14,10 +14,10 @@ CXX           = g++
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -O2 -g -Wall -W -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -O2 -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I..\IDE2 -I. -IC:/Users/SK-31/Desktop/IDE(2)/IDE(2)/ide/IDE2/../../../QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:\Qt\QScintilla_gpl-2.11.2\Qt4Qt5\release -IF:\Qt\5.10.1\mingw53_32\include -IF:\Qt\5.10.1\mingw53_32\include\QtWidgets -IF:\Qt\5.10.1\mingw53_32\include\QtGui -IF:\Qt\5.10.1\mingw53_32\include\QtANGLE -IF:\Qt\5.10.1\mingw53_32\include\QtCore -Irelease -I. -IF:\Qt\5.10.1\mingw53_32\mkspecs\win32-g++ 
+INCPATH       = -I..\IDE2 -I. -IC:/Users/SK-31/Desktop/ide(3)/ide/IDE2/../../../QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:\Qt\QScintilla_gpl-2.11.2\Qt4Qt5\release -IF:\Qt\5.10.1\mingw53_32\include -IF:\Qt\5.10.1\mingw53_32\include\QtWidgets -IF:\Qt\5.10.1\mingw53_32\include\QtGui -IF:\Qt\5.10.1\mingw53_32\include\QtANGLE -IF:\Qt\5.10.1\mingw53_32\include\QtCore -Irelease -I. -IF:\Qt\5.10.1\mingw53_32\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        -lmingw32 -LF:\Qt\5.10.1\mingw53_32\lib F:\Qt\5.10.1\mingw53_32\lib\libqtmain.a -LC:\utils\my_sql\my_sql\lib -LC:\utils\postgresql\pgsql\lib -lshell32 -LC:\Users\SK-31\Desktop\IDE(2)\QScintilla_gpl-2.11.2\QScintilla_gpl-2.11.2\Qt4Qt5\release -LF:\Qt\QScintilla_gpl-2.11.2\Qt4Qt5\release -lqscintilla2_qt5 F:\Qt\5.10.1\mingw53_32\lib\libQt5Widgets.a F:\Qt\5.10.1\mingw53_32\lib\libQt5Gui.a F:\Qt\5.10.1\mingw53_32\lib\libQt5Core.a 
+LIBS        =        -lmingw32 -LF:\Qt\5.10.1\mingw53_32\lib F:\Qt\5.10.1\mingw53_32\lib\libqtmain.a -LC:\utils\my_sql\my_sql\lib -LC:\utils\postgresql\pgsql\lib -lshell32 -LC:\Users\SK-31\Desktop\QScintilla_gpl-2.11.2\QScintilla_gpl-2.11.2\Qt4Qt5\release -LF:\Qt\QScintilla_gpl-2.11.2\Qt4Qt5\release -lqscintilla2_qt5 F:\Qt\5.10.1\mingw53_32\lib\libQt5Widgets.a F:\Qt\5.10.1\mingw53_32\lib\libQt5Gui.a F:\Qt\5.10.1\mingw53_32\lib\libQt5Core.a 
 QMAKE         = F:\Qt\5.10.1\mingw53_32\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -79,7 +79,7 @@ clean: compiler_clean
 	-$(DEL_FILE) release\main.o release\mainwindow.o release\moc_mainwindow.o
 
 distclean: clean 
-	-$(DEL_FILE) C:\Users\SK-31\Desktop\IDE(2)\IDE(2)\ide\build-IDE2-Desktop_Qt_5_10_1_MinGW_32bit-Profile\release\IDE2.exe.debug .qmake.stash
+	-$(DEL_FILE) C:\Users\SK-31\Desktop\ide(3)\ide\build-IDE2-Desktop_Qt_5_10_1_MinGW_32bit-Profile\release\IDE2.exe.debug .qmake.stash
 	-$(DEL_FILE) $(DESTDIR_TARGET)
 	-$(DEL_FILE) Makefile.Release
 
@@ -228,6 +228,15 @@ release/moc_mainwindow.cpp: F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QMainWindo
 		F:/Qt/5.10.1/mingw53_32/include/QtCore/qtimer.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtCore/qbasictimer.h \
 		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscidocument.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscilexerlua.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscilexer.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QColor \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QFont \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QMap \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QString \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciapis.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QPair \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciabstractapis.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QTextEdit \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtextedit.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextdocument.h \
@@ -245,7 +254,7 @@ release/moc_mainwindow.cpp: F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QMainWindo
 		../IDE2/mainwindow.h \
 		release/moc_predefs.h \
 		F:/Qt/5.10.1/mingw53_32/bin/moc.exe
-	F:\Qt\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include release/moc_predefs.h -IF:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++ -I"C:/Users/SK-31/Desktop/IDE(2)/IDE(2)/ide/IDE2" -I"C:/Users/SK-31/Desktop/IDE(2)/QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release" -IF:/Qt/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:/Qt/5.10.1/mingw53_32/include -IF:/Qt/5.10.1/mingw53_32/include/QtWidgets -IF:/Qt/5.10.1/mingw53_32/include/QtGui -IF:/Qt/5.10.1/mingw53_32/include/QtANGLE -IF:/Qt/5.10.1/mingw53_32/include/QtCore -I. -ID:/dongruan/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/dongruan/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\IDE2\mainwindow.h -o release\moc_mainwindow.cpp
+	F:\Qt\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include release/moc_predefs.h -IF:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++ -I"C:/Users/SK-31/Desktop/ide(3)/ide/IDE2" -IC:/Users/SK-31/Desktop/QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:/Qt/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:/Qt/5.10.1/mingw53_32/include -IF:/Qt/5.10.1/mingw53_32/include/QtWidgets -IF:/Qt/5.10.1/mingw53_32/include/QtGui -IF:/Qt/5.10.1/mingw53_32/include/QtANGLE -IF:/Qt/5.10.1/mingw53_32/include/QtCore -I. -ID:/dongruan/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/dongruan/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\IDE2\mainwindow.h -o release\moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -395,6 +404,15 @@ release/main.o: ../IDE2/main.cpp ../IDE2/mainwindow.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtCore/qtimer.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtCore/qbasictimer.h \
 		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscidocument.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscilexerlua.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscilexer.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QColor \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QFont \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QMap \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QString \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciapis.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QPair \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciabstractapis.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QTextEdit \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtextedit.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextdocument.h \
@@ -543,6 +561,15 @@ release/mainwindow.o: ../IDE2/mainwindow.cpp ../IDE2/mainwindow.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtCore/qtimer.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtCore/qbasictimer.h \
 		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscidocument.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscilexerlua.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscilexer.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QColor \
+		F:/Qt/5.10.1/mingw53_32/include/QtGui/QFont \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QMap \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QString \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciapis.h \
+		F:/Qt/5.10.1/mingw53_32/include/QtCore/QPair \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qsciabstractapis.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QTextEdit \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qtextedit.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtGui/qtextdocument.h \
@@ -603,7 +630,8 @@ release/mainwindow.o: ../IDE2/mainwindow.cpp ../IDE2/mainwindow.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qboxlayout.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qlayout.h \
 		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qlayoutitem.h \
-		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qgridlayout.h
+		F:/Qt/5.10.1/mingw53_32/include/QtWidgets/qgridlayout.h \
+		F:/Qt/5.10.1/mingw53_32/include/Qsci/qscilexercpp.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\IDE2\mainwindow.cpp
 
 release/moc_mainwindow.o: release/moc_mainwindow.cpp 

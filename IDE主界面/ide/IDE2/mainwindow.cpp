@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QVBoxLayout *v=new QVBoxLayout();
     v->addWidget(editor);
     this->setLayout(v);
-    setCentralWidget(editor);//将editor置于窗口钟信
+    setCentralWidget(editor);//将editor置于窗口中心
 
     file=this->menuBar()->addMenu("文件");//在菜单栏中添加菜单项
     edit=this->menuBar()->addMenu("编辑");
@@ -104,6 +104,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+/*
 void MainWindow::on_open()
 {
     filename=QFileDialog::getOpenFileName();
@@ -132,6 +133,43 @@ void MainWindow::on_open()
         editor->setText(content);//将字符串的值放到text里面
         flag_isOpen = 1;
         Last_FileName = filename;
+    }
+}
+*/
+void MainWindow::on_open() //打开文件
+{
+
+    QString fileName;
+    fileName = QFileDialog::getOpenFileName(this,tr("打开文件"),tr(""),tr("Text File (*.txt)")); //打开文件的默认路径，第四个参数为对话框的后缀名过滤器
+    if(fileName == "") //考虑用户取消的情况
+    return;
+    else
+    {
+       QFile file(fileName);
+       if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+       {
+           QMessageBox::warning(this,tr("错误"),tr("打开文件失败"));
+           return;
+       }
+       else
+       {
+           if(!file.isReadable())
+           {
+               QMessageBox::warning(this,tr("错误"),tr("该文件不可读"));
+           }
+           else
+           {
+               QTextStream textStream(&file); //读取文件，使用QTextStream
+               while(!textStream.atEnd())
+               {
+                   editor->setText(textStream.readAll());
+               }
+               editor->show();
+               file.close();
+               flag_isOpen = 1;
+               Last_FileName = fileName;
+           }
+       }
     }
 }
 void MainWindow::Save_File() //保存文件
@@ -274,6 +312,7 @@ void MainWindow::on_compile()
             on_save();
         }
     else {//不是则先保存再编译
+     flag_isOpen = 1;
      Save_File();
     }
         precomp();//预编译
