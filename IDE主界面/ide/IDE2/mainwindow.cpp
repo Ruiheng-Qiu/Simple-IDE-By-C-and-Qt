@@ -33,14 +33,14 @@ MainWindow::MainWindow(QWidget *parent) :
     editor->setAutoCompletionCaseSensitivity(true);//大小写敏感
     editor->setAutoCompletionThreshold(1);//每输入1个字符就出现自动完成的提示
 
-    //editor->setAutoIndent(true);//本来应该是括号补齐，不知道为什么没有用
+    editor->setAutoIndent(true);//自动缩进
 
     editor->setMarginType(0,QsciScintilla::NumberMargin);
     editor->setMarginLineNumbers(0,true);
     editor->setMarginWidth(0,35);//设置行号计数
 
     editor->setIndentationGuides(QsciScintilla::SC_IV_LOOKBOTH);
-    editor->setCaretLineVisible(true);//自动补齐
+    editor->setCaretLineVisible(true);//选中行颜色可见
 
     editor->setCaretLineBackgroundColor(QColor(187,255,255));//选中所在行颜色
     editor->setMarginsBackgroundColor(Qt::lightGray);//行号颜色
