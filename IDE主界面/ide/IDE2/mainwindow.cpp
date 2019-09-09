@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     editor->setIndentationGuides(QsciScintilla::SC_IV_LOOKBOTH);
     editor->setCaretLineVisible(true);//自动补齐
 
-    editor->setCaretLineBackgroundColor(Qt::white);//选中所在行颜色
+    editor->setCaretLineBackgroundColor(QColor(187,255,255));//选中所在行颜色
     editor->setMarginsBackgroundColor(Qt::lightGray);//行号颜色
     editor->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 
