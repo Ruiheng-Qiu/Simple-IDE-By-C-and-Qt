@@ -8,13 +8,17 @@
 #include <QtEvents>
 #include <QVBoxLayout>
 #include <Qsci/qscilexercpp.h>
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int flag_isOpen = 0; //判断是否打开或新建了一个文件
 int flag_isNew = 0; //判断文件是否新建
 QString Last_FileName;
 QString Last_FileContent;
-
+QString fileName;  //路径+名字+.txt 柯杭
+QString fileName1;  //路径+名字+.c 柯杭
+char name[15]; //文件名字 柯杭
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -25,10 +29,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     editor->SendScintilla(QsciScintilla::SCI_SETCODEPAGE,QsciScintilla::SC_CP_UTF8);//设置UTF-8编码
     QsciLexer *textLexer=new QsciLexerCPP;
-    editor->setLexer(textLexer);//设置词法器检测单词
+
 
     QsciAPIs *apis = new QsciAPIs(textLexer);
     apis->prepare();
+    editor->setLexer(textLexer);//设置词法器检测单词
     editor->setAutoCompletionSource(QsciScintilla::AcsAll);//设置自动完成所有项
     editor->setAutoCompletionCaseSensitivity(true);//大小写敏感
     editor->setAutoCompletionThreshold(1);//每输入1个字符就出现自动完成的提示
@@ -78,12 +83,28 @@ MainWindow::MainWindow(QWidget *parent) :
     edit->addAction(edit_cut);
     edit_paste=new QAction("粘贴",this);
     edit->addAction(edit_paste);
+    hide=new QAction("隐藏注释",this);
+    edit->addAction(hide);
+    showt=new QAction("显示注释",this);
+    edit->addAction(showt);
     select_all=new QAction("select all",this);
     edit->addAction(select_all);
     build_compile=new QAction("编译",this);
     build->addAction(build_compile);
     build_run=new QAction("运行",this);
     build->addAction(build_run);
+    build_debug = new QAction("开始调试",this);
+    build->addAction(build_debug);
+    build_break = new QAction("设置断点",this);
+    build->addAction(build_break);
+    build_next = new QAction("下一步",this);
+    build->addAction(build_next);
+    build_next_b = new QAction("下一断点",this);
+    build->addAction(build_next_b);
+    build_check = new QAction("查看变量",this);
+    build->addAction(build_check);
+    build_over = new QAction("结束调试",this);
+    build->addAction(build_over);
     //Qt的消息槽机制
     connect(file_open,SIGNAL(triggered()),this,SLOT(on_open()));
     //第一个参数是触发事件的控件，第二个参数是对于Action来说的固定写法
@@ -97,7 +118,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(file_save,SIGNAL(triggered()),this,SLOT(on_save()));
     connect(build_compile,SIGNAL(triggered()),this,SLOT(on_compile()));
     connect(build_run,SIGNAL(triggered()),this,SLOT(on_run()));
+    connect(build_debug, SIGNAL(triggered()), this, SLOT(begin_Debug()));
     connect(file_save1,SIGNAL(triggered()),this,SLOT(Save_File()) );
+    connect(hide,SIGNAL(triggered()),this,SLOT(decline_tips()) );
+    connect(showt,SIGNAL(triggered()),this,SLOT(show_tips()) );
 }
 
 MainWindow::~MainWindow()
@@ -138,8 +162,6 @@ void MainWindow::on_open()
 */
 void MainWindow::on_open() //打开文件
 {
-
-    QString fileName;
     fileName = QFileDialog::getOpenFileName(this,tr("打开文件"),tr(""),tr("Text File (*.txt)")); //打开文件的默认路径，第四个参数为对话框的后缀名过滤器
     if(fileName == "") //考虑用户取消的情况
     return;
@@ -206,6 +228,7 @@ void MainWindow::Save_File() //保存文件
             filename.close();
             flag_isNew = 0;     //新文件标记位记为0
             Last_FileName = str;//保存文件内容
+            fileName = Last_FileName; // 柯杭
         }
     }
     //原有文件修改后的保存
@@ -225,6 +248,7 @@ void MainWindow::Save_File() //保存文件
                 QString str = editor->text();
                 textStream<<str;
                 Last_FileContent = str;
+                fileName = Last_FileName;  //柯杭
                 file.close();
             }
         }
@@ -283,30 +307,14 @@ void MainWindow::on_save()
         flag_isNew = 0;
     }
 }
-
-void MainWindow::precomp()//预编译
-{
-    FILE *p = fopen(filename.toStdString().data(),"r");
-    if(p == NULL) return ;
-    QString cmd = filename +".c";//准备写入cmd的命令
-    FILE *p1 = fopen(cmd.toStdString().data(),"w");//写入命令
-    if(p1 == NULL) return ;
-    QString str;
-    while(!feof(p))
-    {
-        char buf[1024] = {0};
-        fgets(buf,sizeof(buf),p);
-        str += buf;//拼接文本内容
-    }
-
-    fputs(str.toStdString().data(),p1);
-    fclose(p);
-    fclose(p1);//记得关闭文件！
-}
-
-
 void MainWindow::on_compile()
 {
+    char cmd[1024];
+    char buffer[2048];
+    char result[1024];
+    memset(result,'\0',sizeof(result));
+    memset(buffer,'\0',sizeof(buffer));
+    memset(cmd,'\0',sizeof(cmd));
     if (flag_isNew == true)//如果是新文件，编译就另存为
         {
             on_save();
@@ -315,25 +323,207 @@ void MainWindow::on_compile()
      flag_isOpen = 1;
      Save_File();
     }
-        precomp();//预编译
-        QString cmd;
-        const char *s = filename.toStdString().data();//获取代码内容
-        cmd.sprintf("gcc -o %s.exe %s.c",s,s);//编译命令
-        system(cmd.toStdString().data());//先编译
+    fd_copy();
+    QByteArray ba = fileName1.toLatin1(); // must
+    char*  ch;
+    ch=ba.data();
+    get_name(ch,strlen(ch));
+    get_cmd(ch,cmd,1);
+    system(cmd);
+    FILE* pipe = popen(cmd,"r");//打开管道，并执行命令
+    if(pipe == NULL)
+         printf("errer!\n");
+    else
+    {
+        char buf[1024];
+        memset(buf, '\0', sizeof(buf));
+        FILE* msg = fopen("err.txt", "r");
+        if(msg == NULL){
+            printf("读取err.txt失败！\n");
+        }
+        else{
+                fread(buf, sizeof(char), 1024, msg);
+                // 关闭文件
+                fclose(msg);
+        }
+//        while(!feof(pipe)) {
+//           if(b =fgets(buffer, 128, pipe)){                   //将管道输出到result中
+//                 strcat(result,buffer);
+//            }
+//            b =fgets(buffer, 2048, pipe);
+//        }
 
-        cmd = filename.replace("/","\\") + ".c";
-        remove(cmd.toStdString().data());//清楚数据
-
-
-        cmd = filename + ".exe";//生成可运行我呢见
-        system(cmd.toStdString().data());//再运行
-
+        if(buf[1] == '\0')
+        {
+            QMessageBox::warning(this,tr("yean!"),tr("编译成功!"));
+            _pclose(pipe);
+            return;
+        }
+        else{
+            QMessageBox::warning(this,tr("可惜"),tr(buf),tr("确定"));
+            _pclose(pipe);
+            return;
+        }
+    }
+    _pclose(pipe);
+    return;
 }
-
 void MainWindow::on_run()
 {
-    QString cmd;
-    cmd = filename + ".exe";
-    system(cmd.toStdString().data());//运行exe文件
+    char buffer[1024];
+    char result[1024];
+    memset(result,0,sizeof(result));
+    char cmd[1024];
+    strcat(cmd,name);
+//    FILE* pipe = _popen("gcc E:/code/CCC.c -o CCC","r");//打开管道，并执行命令
+//    if(pipe == NULL)
+//         printf("errer!\n");
+//    else
+//    {
+//        while(!feof(pipe)) {
+//            if(fgets(buffer, 128, pipe)){                   //将管道输出到result中
+//                 strcat(result,buffer);
+//            }
+//        }
+//        printf(result);
+//    }
+//    _pclose(pipe);
+    system(cmd);
+}
+void MainWindow::begin_Debug()//实现debug功能
+{
+    return;
+    QString defilename = filename;
+    QString order = "gcc " + defilename + " -o " + filename + " -p";
+    std::string str = order.toStdString();
+    const char* ch = str.c_str();
+    FILE* pipe = _popen(ch,"r");//打开管道，并执行命令
+    if(pipe == NULL)
+        printf("errer!\n");
+    /*
+    while(!feof(pipe)) {
+        if(fgets(buffer, 128, pipe)){                   //将管道输出到result中
+            puts(buffer);
+        }
+    }
+    */
+    _pclose(pipe);
+}
+void get_name(char *pathf,int l)
+{
+    int i = 0;int k = 0;int j = 0;
+    memset(name,0,sizeof(name));
+    for(i = 0;i<l;i++)
+    {
+        if(pathf[i]=='/')
+            k = i;
+    }
+    for(i = k+1;i<l;i++)
+    {
+        if(pathf[i] == '.')
+            break;
+        name[j] = pathf[i];
+        j++;
+    }
+    return;
+}
+void get_cmd(char *ch,char *cmd,int mode)  //命令1是编译  命令2是debug
+{
+    memset(cmd,'\0',sizeof(cmd));
+    if(mode == 1)
+    {
+        //gcc E:/code/CCC.c -o CCC > E:/code/err.txt 2>&1
+        strcat(cmd,"gcc ");
+        strcat(cmd,ch);
+        strcat(cmd," -o ");
+        strcat(cmd,name);
+        strcat(cmd, " > err.txt 2>&1");
+    }
+    if(mode == 2)
+    {
+        strcat(cmd,"gcc ");
+        strcat(cmd,ch);
+        strcat(cmd," -o ");
+        strcat(cmd,name);
+        strcat(cmd," -p ");
+    }
+}
+void fd_copy()
+{
+    fileName1 = fileName;
+    fileName1 = fileName1.replace(".txt",".c");
+    FILE *in, *out;
+    char ch,*ch1,*ch2 ;
+    QByteArray ba1 = fileName.toLatin1(); // must
+    ch1 = ba1.data();
+    QByteArray ba2 = fileName1.toLatin1();
+    ch2 = ba2.data();
+    if ((in = fopen(ch1,"r")) == NULL) //in.txt 和out.txt 都在当前工作目录下存放
+    {
+    printf("canot find the .txt file!\n");
+    exit(0);
+    }
+    if ((out = fopen(ch2,"w"))==NULL) // 写入数据的文件
+    {
+        printf("canot find the .txt file!\n");
+        exit(0);
+    }
+    ch = fgetc(in);
+    while (ch!=EOF)
+    {
+        fputc(ch,out);
+        putchar(ch); //是in.txt 的内容显示在dos窗口 下
+        ch = fgetc(in);
+    }
+    fclose(in); // 关闭文件
+    fclose(out);
 }
 
+void MainWindow::decline_tips() {
+
+    bool commentEmptyLines = true;
+    int selectionEnd = editor->SendScintilla(QsciScintillaBase::SCI_GETSELECTIONEND);
+    int selStartLine = 0;
+    int selEndLine = 1000;
+    int lines = selEndLine - selStartLine;
+
+    if ((lines > 0)&&(selectionEnd == editor->SendScintilla(QsciScintillaBase::SCI_POSITIONFROMLINE, selectionEnd)))
+        selEndLine--;
+
+    editor->SendScintilla(QsciScintillaBase::SCI_BEGINUNDOACTION);
+
+    for (int i = 0; i <= 1000; i++) {
+        int lineIndent = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEINDENTPOSITION, i);
+        int lineEnd = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEENDPOSITION, i);
+
+        if (lineIndent == lineEnd && !commentEmptyLines)
+            continue;
+
+        int lineBufferSize = lineEnd - lineIndent +1;
+        char *buf = new char[lineBufferSize];
+
+        editor->SendScintilla(QsciScintillaBase::SCI_GETTEXTRANGE, lineIndent, lineEnd, buf);
+        QString str = QString(QLatin1String(buf));
+
+        if (str.mid(0, 2) == "//") {
+            editor->SendScintilla(QsciScintillaBase::SCI_DELETERANGE, lineIndent, str.length());
+            //printf("a:%d\n", i);//调试使用
+        }
+
+        else {
+            for (int j = 2; j < str.length()-2; j++) {
+                if (str.mid(j, 2) == "//") {
+                    editor->SendScintilla(QsciScintillaBase::SCI_DELETERANGE, lineIndent+j, str.length()-j);
+                    //printf("b:%d\n", i);//调试使用
+                    break;
+                }
+            }
+        }
+    }
+
+    editor->SendScintilla(QsciScintillaBase::SCI_ENDUNDOACTION);
+}
+
+void MainWindow::show_tips() {
+    editor->undo();
+}

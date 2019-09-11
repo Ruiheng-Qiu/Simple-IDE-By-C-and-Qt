@@ -434,7 +434,7 @@ all: release-all debug-all  FORCE
 clean: release-clean debug-clean  FORCE
 distclean: release-distclean debug-distclean  FORCE
 	-$(DEL_FILE) Makefile
-	-$(DEL_FILE) C:\Users\SK-31\Desktop\ide(3)\ide\build-IDE2-Desktop_Qt_5_10_1_MinGW_32bit-Profile\IDE2.exe.debug .qmake.stash
+	-$(DEL_FILE) C:\Users\SK-31\Desktop\ide(4)\ide\build-IDE2-Desktop_Qt_5_10_1_MinGW_32bit-Profile\IDE2.exe.debug .qmake.stash
 
 release-mocclean:
 	$(MAKE) -f $(MAKEFILE).Release mocclean

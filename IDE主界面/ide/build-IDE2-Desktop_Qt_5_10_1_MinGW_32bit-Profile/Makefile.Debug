@@ -14,7 +14,7 @@ CXX           = g++
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -g -Wall -W -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I..\IDE2 -I. -IC:/Users/SK-31/Desktop/ide(3)/ide/IDE2/../../../QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:\Qt\QScintilla_gpl-2.11.2\Qt4Qt5\release -IF:\Qt\5.10.1\mingw53_32\include -IF:\Qt\5.10.1\mingw53_32\include\QtWidgets -IF:\Qt\5.10.1\mingw53_32\include\QtGui -IF:\Qt\5.10.1\mingw53_32\include\QtANGLE -IF:\Qt\5.10.1\mingw53_32\include\QtCore -Idebug -I. -IF:\Qt\5.10.1\mingw53_32\mkspecs\win32-g++ 
+INCPATH       = -I..\IDE2 -I. -IC:/Users/SK-31/Desktop/ide(4)/ide/IDE2/../../../QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:\Qt\QScintilla_gpl-2.11.2\Qt4Qt5\release -IF:\Qt\5.10.1\mingw53_32\include -IF:\Qt\5.10.1\mingw53_32\include\QtWidgets -IF:\Qt\5.10.1\mingw53_32\include\QtGui -IF:\Qt\5.10.1\mingw53_32\include\QtANGLE -IF:\Qt\5.10.1\mingw53_32\include\QtCore -Idebug -I. -IF:\Qt\5.10.1\mingw53_32\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
 LIBS        =        -lmingw32 -LF:\Qt\5.10.1\mingw53_32\lib F:\Qt\5.10.1\mingw53_32\lib\libqtmaind.a -LC:\utils\my_sql\my_sql\lib -LC:\utils\postgresql\pgsql\lib -lshell32 -LC:\Users\SK-31\Desktop\QScintilla_gpl-2.11.2\QScintilla_gpl-2.11.2\Qt4Qt5\debug -LF:\Qt\QScintilla_gpl-2.11.2\Qt4Qt5\debug -lqscintilla2_qt5 F:\Qt\5.10.1\mingw53_32\lib\libQt5Widgetsd.a F:\Qt\5.10.1\mingw53_32\lib\libQt5Guid.a F:\Qt\5.10.1\mingw53_32\lib\libQt5Cored.a 
@@ -79,7 +79,7 @@ clean: compiler_clean
 	-$(DEL_FILE) debug\main.o debug\mainwindow.o debug\moc_mainwindow.o
 
 distclean: clean 
-	-$(DEL_FILE) C:\Users\SK-31\Desktop\ide(3)\ide\build-IDE2-Desktop_Qt_5_10_1_MinGW_32bit-Profile\debug\IDE2.exe.debug .qmake.stash
+	-$(DEL_FILE) C:\Users\SK-31\Desktop\ide(4)\ide\build-IDE2-Desktop_Qt_5_10_1_MinGW_32bit-Profile\debug\IDE2.exe.debug .qmake.stash
 	-$(DEL_FILE) $(DESTDIR_TARGET)
 	-$(DEL_FILE) Makefile.Debug
 
@@ -254,7 +254,7 @@ debug/moc_mainwindow.cpp: F:/Qt/5.10.1/mingw53_32/include/QtWidgets/QMainWindow 
 		../IDE2/mainwindow.h \
 		debug/moc_predefs.h \
 		F:/Qt/5.10.1/mingw53_32/bin/moc.exe
-	F:\Qt\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IF:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++ -I"C:/Users/SK-31/Desktop/ide(3)/ide/IDE2" -IC:/Users/SK-31/Desktop/QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:/Qt/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:/Qt/5.10.1/mingw53_32/include -IF:/Qt/5.10.1/mingw53_32/include/QtWidgets -IF:/Qt/5.10.1/mingw53_32/include/QtGui -IF:/Qt/5.10.1/mingw53_32/include/QtANGLE -IF:/Qt/5.10.1/mingw53_32/include/QtCore -I. -ID:/dongruan/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/dongruan/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\IDE2\mainwindow.h -o debug\moc_mainwindow.cpp
+	F:\Qt\5.10.1\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -IF:/Qt/5.10.1/mingw53_32/mkspecs/win32-g++ -I"C:/Users/SK-31/Desktop/ide(4)/ide/IDE2" -IC:/Users/SK-31/Desktop/QScintilla_gpl-2.11.2/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:/Qt/QScintilla_gpl-2.11.2/Qt4Qt5/release -IF:/Qt/5.10.1/mingw53_32/include -IF:/Qt/5.10.1/mingw53_32/include/QtWidgets -IF:/Qt/5.10.1/mingw53_32/include/QtGui -IF:/Qt/5.10.1/mingw53_32/include/QtANGLE -IF:/Qt/5.10.1/mingw53_32/include/QtCore -I. -ID:/dongruan/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/dongruan/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/dongruan/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\IDE2\mainwindow.h -o debug\moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:

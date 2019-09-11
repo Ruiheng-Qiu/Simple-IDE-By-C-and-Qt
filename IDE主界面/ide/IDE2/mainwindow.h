@@ -37,8 +37,6 @@ private:
 
 private :
 
-    QTextEdit *textEdit;
-
     QMenu *file;
 
     QMenu *edit;
@@ -51,7 +49,8 @@ private :
     QAction *file_exit;
     QAction *help_about;
     QAction *edit_copy;
-
+    QAction *hide;
+    QAction *showt;
     QAction *edit_cut;
 
     QAction *edit_paste;
@@ -59,7 +58,12 @@ private :
     QAction *file_save;
     QAction *build_compile;
     QAction *build_run;
-
+    QAction *build_debug;
+    QAction *build_next;
+    QAction *build_next_b;
+    QAction *build_break;
+    QAction *build_check;
+    QAction *build_over;
     QAction *file_save1;
 
 private slots:
@@ -74,7 +78,12 @@ private slots:
     void on_compile();
     void on_run();
     void Save_File();
-    void precomp();
+    void begin_Debug();
+    void decline_tips();
+    void show_tips();
 };
 
 #endif // MAINWINDOW_H
+void get_name(char *pf,int l);//柯杭
+void get_cmd(char *ch,char *cmd,int mode);
+void fd_copy();
