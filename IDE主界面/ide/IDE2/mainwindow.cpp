@@ -486,6 +486,9 @@ void MainWindow::decline_tips() {
     int selStartLine = 0;
     int selEndLine = 1000;
     int lines = selEndLine - selStartLine;
+    int lineIndent;
+    int lineEnd;
+    int lineBufferSize;
 
     if ((lines > 0)&&(selectionEnd == editor->SendScintilla(QsciScintillaBase::SCI_POSITIONFROMLINE, selectionEnd)))
         selEndLine--;
@@ -493,13 +496,13 @@ void MainWindow::decline_tips() {
     editor->SendScintilla(QsciScintillaBase::SCI_BEGINUNDOACTION);
 
     for (int i = 0; i <= 1000; i++) {
-        int lineIndent = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEINDENTPOSITION, i);
-        int lineEnd = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEENDPOSITION, i);
+        lineIndent = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEINDENTPOSITION, i);
+        lineEnd = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEENDPOSITION, i);
 
         if (lineIndent == lineEnd && !commentEmptyLines)
             continue;
 
-        int lineBufferSize = lineEnd - lineIndent +1;
+        lineBufferSize = lineEnd - lineIndent +1;
         char *buf = new char[lineBufferSize];
 
         editor->SendScintilla(QsciScintillaBase::SCI_GETTEXTRANGE, lineIndent, lineEnd, buf);
@@ -508,6 +511,27 @@ void MainWindow::decline_tips() {
         if (str.mid(0, 2) == "//") {
             editor->SendScintilla(QsciScintillaBase::SCI_DELETERANGE, lineIndent, str.length());
             //printf("a:%d\n", i);//调试使用
+        }
+
+        else if (str.mid(0, 2) == "/*") {
+            editor->SendScintilla(QsciScintillaBase::SCI_DELETERANGE, lineIndent, str.length());
+            for (int j = i+1; j <= 1000; j++) {
+                lineIndent = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEINDENTPOSITION, j);
+                lineEnd = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEENDPOSITION, j);
+
+                if (lineIndent == lineEnd && !commentEmptyLines)
+                    continue;
+                lineBufferSize = lineEnd - lineIndent +1;
+                char *bufa = new char[lineBufferSize];
+                editor->SendScintilla(QsciScintillaBase::SCI_GETTEXTRANGE, lineIndent, lineEnd, bufa);
+                QString stra = QString(QLatin1String(bufa));
+                editor->SendScintilla(QsciScintillaBase::SCI_DELETERANGE, lineIndent, stra.length());
+                if (stra.mid(stra.length()-2, 2)=="*/") {
+                    free(bufa);
+                    break;
+                }
+                free(bufa);
+            }
         }
 
         else {
@@ -519,6 +543,7 @@ void MainWindow::decline_tips() {
                 }
             }
         }
+        free(buf);
     }
 
     editor->SendScintilla(QsciScintillaBase::SCI_ENDUNDOACTION);
