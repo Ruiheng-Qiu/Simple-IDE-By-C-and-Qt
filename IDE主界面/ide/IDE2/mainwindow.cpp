@@ -19,6 +19,10 @@ QString Last_FileContent;
 QString fileName;  //路径+名字+.txt 柯杭
 QString fileName1;  //路径+名字+.c 柯杭
 char name[15]; //文件名字 柯杭
+int line_tag = 0;
+int hide_lines[500];
+QString hide_contents[500];
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -509,11 +513,17 @@ void MainWindow::decline_tips() {
         QString str = QString(QLatin1String(buf));
 
         if (str.mid(0, 2) == "//") {
+            hide_lines[line_tag] = i;
+            hide_contents[line_tag] = str;
+            line_tag++;
             editor->SendScintilla(QsciScintillaBase::SCI_DELETERANGE, lineIndent, str.length());
             //printf("a:%d\n", i);//调试使用
         }
 
         else if (str.mid(0, 2) == "/*") {
+            hide_lines[line_tag] = i;
+            hide_contents[line_tag] = str;
+            line_tag++;
             editor->SendScintilla(QsciScintillaBase::SCI_DELETERANGE, lineIndent, str.length());
             for (int j = i+1; j <= 1000; j++) {
                 lineIndent = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEINDENTPOSITION, j);
@@ -525,6 +535,9 @@ void MainWindow::decline_tips() {
                 char *bufa = new char[lineBufferSize];
                 editor->SendScintilla(QsciScintillaBase::SCI_GETTEXTRANGE, lineIndent, lineEnd, bufa);
                 QString stra = QString(QLatin1String(bufa));
+                hide_lines[line_tag] = j;
+                hide_contents[line_tag] = stra;
+                line_tag++;
                 editor->SendScintilla(QsciScintillaBase::SCI_DELETERANGE, lineIndent, stra.length());
                 if (stra.mid(stra.length()-2, 2)=="*/") {
                     free(bufa);
@@ -537,6 +550,9 @@ void MainWindow::decline_tips() {
         else {
             for (int j = 2; j < str.length()-2; j++) {
                 if (str.mid(j, 2) == "//") {
+                    hide_lines[line_tag] = i;
+                    hide_contents[line_tag] = str.mid(j, str.length()-j);
+                    line_tag++;//bbbb
                     editor->SendScintilla(QsciScintillaBase::SCI_DELETERANGE, lineIndent+j, str.length()-j);
                     //printf("b:%d\n", i);//调试使用
                     break;
@@ -550,5 +566,48 @@ void MainWindow::decline_tips() {
 }
 
 void MainWindow::show_tips() {
-    editor->undo();
+    //editor->undo();
+
+    //获取必要的参数
+
+    bool commentEmptyLines = true;
+    int selectionEnd = editor->SendScintilla(QsciScintillaBase::SCI_GETSELECTIONEND);
+    int selStartLine = 0;
+    int selEndLine = 1000;
+    int lines = selEndLine - selStartLine;
+    int lineIndent;
+    int lineEnd;
+    int lineBufferSize;
+    //处理结束行
+    if((lines  > 0)&& (selectionEnd == editor->SendScintilla(QsciScintillaBase::SCI_POSITIONFROMLINE,selEndLine)))
+    selEndLine-- ;
+    // 注释每一行
+
+
+    //遍历行
+      for(int i = 0; i < line_tag ; ++i)
+     {
+    //获取注释的行信息
+        lineIndent = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEINDENTPOSITION, hide_lines[i]);
+        lineEnd    = editor->SendScintilla(QsciScintillaBase::SCI_GETLINEENDPOSITION,hide_lines[i]);
+
+        if(lineIndent == lineEnd && !commentEmptyLines)
+               continue;
+
+     // 要注释的行前面的空格处理
+         lineBufferSize = lineEnd - lineIndent +1;
+         char *buf =new char[lineBufferSize];
+    //获取注释范围
+         editor->SendScintilla(QsciScintillaBase::SCI_GETTEXTRANGE, lineIndent, lineEnd,buf);
+    //添加注释 “//”
+         char*  ch;
+
+         QByteArray ba = hide_contents[i].toLatin1(); // must
+
+         ch=ba.data();
+         editor->SendScintilla(QsciScintillaBase::SCI_INSERTTEXT, lineEnd, ch);
+         printf("i:%d hide_lines:%d hide_contents:%s\n", i, hide_lines[i], ch);
+         printf("%d:%s\n", i, ch);
+      }
+
 }
