@@ -1,2 +1,4 @@
 C:/Users/SK-31/Desktop/test.c: In function 'main':
-C:/Users/SK-31/Desktop/test.c:16:2: error: expected ';' before 'return'
+C:/Users/SK-31/Desktop/test.c:14:2: error: expected ';' before 'return'
+  return 0;
+  ^
