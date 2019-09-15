@@ -1,0 +1,6 @@
+C:/Users/SK-31/Desktop/test.c: In function 'main':
+C:/Users/SK-31/Desktop/test.c:13:2: error: 'jjj' undeclared (first use in this function)
+  return 0;
+  ^
+C:/Users/SK-31/Desktop/test.c:13:2: note: each undeclared identifier is reported only once for each function it appears in
+C:/Users/SK-31/Desktop/test.c:14:2: error: expected ';' before 'return'
